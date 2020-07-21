@@ -13,7 +13,11 @@ import FormLabel from '@material-ui/core/FormLabel';
 class AddWebsiteDatabase extends React.Component{
   constructor(props){
     super(props);
-    this.state = {apiResponse : ""};
+    this.state = {
+      apiResponse : "",
+      typeWebsite : "E-Commerce Website",
+      websiteName : "",
+    };
   }
 
   callApi(){
@@ -30,19 +34,42 @@ class AddWebsiteDatabase extends React.Component{
   {
     return (
       <div className="App">
-            <TextField id="outlined-basic" label="Website Name" variant="outlined" />
-           <Button variant="contained" color="primary">
+          <TextField 
+            id="outlined-basic" 
+            label="Website Name" 
+            variant="outlined" 
+            onChange={(event) => this.setState({websiteName:event.target.value})}
+          />
+          <Button 
+            variant="contained" 
+            color="primary"
+            onClick={(event) => {
+              let url = "http://localhost:9000/addWebsiteToDatabase?type=";
+              if( this.state.typeWebsite == "E-Commerce Website" ){
+                url += "eCommerce";
+              }
+              else{
+                url += "fashionMagazines";
+              }
+              url += "&value=" + this.state.websiteName;
+              fetch(url)
+              .then( res => res.text())
+              .then( res => this.setState({apiResponse: res}) );
+            }}
+          >
                 Add Website
             </Button>
             <FormControl component="fieldset">
             <FormLabel component="legend">Choose Type of Website</FormLabel>
-            <RadioGroup aria-label="gender" name="gender1" >
-                {/* //value={value} onChange={handleChange}> */}
+            <RadioGroup aria-label="gender" name="gender1"
+                value = {this.state.typeWebsite}
+                onChange={(event,value)=> this.setState({typeWebsite:value})}>
                 <FormControlLabel value="Fashion Magazine" control={<Radio />} label="Fashion Magazine" />
-                <FormControlLabel value="Ecommerce Website" control={<Radio />} label="Ecommerce Website" />
+                <FormControlLabel value="E-Commerce Website" control={<Radio />} label="E-Commerce Website" />
             </RadioGroup>
             </FormControl>
-
+            <br/>
+            {this.state.apiResponse}
       </div>
     );
   }

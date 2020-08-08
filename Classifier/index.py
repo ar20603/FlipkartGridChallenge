@@ -1,12 +1,3 @@
-from flask import Flask
-from flask import request
-import pymongo
-from pymongo import MongoClient
-from datetime import datetime
-import json
-from flask import jsonify
-app = Flask(__name__)
-
 from keras.preprocessing import image
 from keras.layers import GlobalAveragePooling2D, Dense, Dropout
 from keras.models import Model
@@ -16,6 +7,17 @@ import numpy as np
 import tensorflow as tf
 import shutil
 import requests
+
+from flask_ngrok import run_with_ngrok
+from flask import Flask
+from flask import request
+import pymongo
+from pymongo import MongoClient
+from datetime import datetime
+import json
+from flask import jsonify
+app = Flask(__name__)
+run_with_ngrok(app) 
 
 base_model = tf.keras.applications.MobileNet(
     include_top=False,
@@ -28,7 +30,7 @@ base_model = tf.keras.applications.MobileNet(
 )
 
 img_size = 224
-filepath = 'MobileNet_pretrained_model_full.h5'
+filepath = '/content/drive/My Drive/flipkart/models/MobileNet_pretrained_model_full.h5'
 
 x = base_model.output
 x = Dense(128)(x)
@@ -42,15 +44,15 @@ inputShape = (img_size,img_size) # Assumes 3 channel image
 def classify():
     args = request.args
     image_url = ""
-    data = {}
     if ( len(args.getlist('image_url')) > 0 ):
         image_url = args.getlist('image_url')[0]
-        data["image_url"] = image_url
     else :
         return jsonify({"status": "Image URL missing"}), 400    
     
     # test that url here
     url = "https://images-na.ssl-images-amazon.com/images/I/916q4pTEEaL._UY695_.jpg"
+    url = image_url
+    print(image_url)
 
     response = requests.get(url, stream=True)
     with open('img.png', 'wb') as out_file:
@@ -64,7 +66,12 @@ def classify():
     preds = model.predict(image)
     print(preds)
 
-    return jsonify({"status": "Added successfully"}), 200
+    if preds[0][1] >= 0.85:
+        category = "tshirt"
+    else:
+        category = "non-tshirt"
+
+    return jsonify({"status": "Classified successfully", "category": category}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run()

@@ -22,7 +22,7 @@ class App extends React.Component{
     return (
       <div className="App">
       <AddWebsiteDatabase />
-        {this.state.apiResponse}
+        {/* {this.state.apiResponse} */}
       </div>
     );
   }

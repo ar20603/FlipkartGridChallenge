@@ -7,6 +7,10 @@ import numpy as np
 import tensorflow as tf
 import shutil
 import requests
+import urllib
+import cv2
+import urllib.request
+from google.colab.patches import cv2_imshow
 
 from flask_ngrok import run_with_ngrok
 from flask import Flask
@@ -54,11 +58,14 @@ def classify():
     url = image_url
     print(image_url)
 
-    response = requests.get(url, stream=True)
-    with open('img.png', 'wb') as out_file:
-        shutil.copyfileobj(response.raw, out_file)
-    del response
-
+    # response = requests.get(url, stream=True)
+    # with open('img.png', 'wb') as out_file:
+        # shutil.copyfileobj(response.raw, out_file)
+    # del response
+	url_response = urllib.request.urlopen(url)
+	img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
+	img = cv2.imdecode(img_array, -1)
+	cv2.imwrite("img.png", img)
     image = load_img('img.png', target_size=inputShape)
     image = img_to_array(image)   # shape is (224,224,3)
     image = np.expand_dims(image, axis=0)  # Now shape is (1,224,224,3)

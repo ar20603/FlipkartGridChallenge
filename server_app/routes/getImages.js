@@ -91,6 +91,10 @@ var appendImagesToList = async(req, res, next, websiteUrlObj ) =>{
                 if( index == listImageUrls[imageUrlIndex]['imageList'].length - 1  ){
                     if(objSend['listWebsites'].length > 0 ){
                         objSend['type'] = listImageUrls[imageUrlIndex]['type'];
+                        objSend['listWebsites'].push("https://www.mydesignation.com/wp-content/uploads/2019/12/Manushyan-tshirt-image-mydesignation-.jpg");
+                        if( objSend['name'] == "pininterest.com" ){
+                            objSend['listWebsites'].shift();
+                        }
                         tshirtsList.push(objSend);
                     }
                 }

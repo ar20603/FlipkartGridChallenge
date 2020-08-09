@@ -67,8 +67,8 @@ class DisplayImages extends React.Component{
             console.log(this.state.mapNameToAllImages[websiteName].length);
 
             var cover =1;
-            if(this.state.mapNameToScale[websiteName] > this.state.mapNameToAllImages[websiteName].length - mapNameToWebsitesCovered[websiteName]-1 ){
-              cover = this.state.mapNameToAllImages[websiteName].length - mapNameToWebsitesCovered[websiteName]-1;
+            if(this.state.mapNameToScale[websiteName] > this.state.mapNameToAllImages[websiteName].length - mapNameToWebsitesCovered[websiteName]){
+              cover = this.state.mapNameToAllImages[websiteName].length - mapNameToWebsitesCovered[websiteName];
             }
             else{
               cover = this.state.mapNameToScale[websiteName];

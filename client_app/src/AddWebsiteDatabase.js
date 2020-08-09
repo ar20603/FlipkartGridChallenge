@@ -50,6 +50,11 @@ class AddWebsiteDatabase extends React.Component{
             variant="outlined" 
             onChange={(event) => this.setState({websiteName:event.target.value})}
           />
+           <TextField 
+            id="outlined-basic" 
+            label="Website Url" 
+            variant="outlined" 
+          />
           <br/>
           <br/>
           <br/>

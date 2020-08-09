@@ -6,8 +6,13 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import FaceIcon from '@material-ui/icons/Face';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import SimpleModal from './modalToAddWebsite'
 import UpdateScaleModal from './modalUpdateScale'
+import CardMedia from '@material-ui/core/CardMedia';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -33,8 +38,13 @@ export default function NavBar(props) {
           <Typography variant="h6" className={classes.title}>
             Dashboard
           </Typography>
+          <Tooltip title="mayank343@gmail.com">
+
+          <IconButton  className={classes.faceButton} color="inherit" aria-label="face">
+            <FaceIcon />
+          </IconButton>
+          </Tooltip>
           <SimpleModal/>
-          <UpdateScaleModal mapWebsitesToScale={props.mapWebsitesToScale} setMapWebsitesToScale={props.setMapWebsitesToScale} />
         </Toolbar>
       </AppBar>
     </div>

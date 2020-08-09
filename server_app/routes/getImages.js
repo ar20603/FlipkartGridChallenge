@@ -87,10 +87,18 @@ var appendImagesToList = async(req, res, next, websiteUrlObj ) =>{
                 } );
                 if( index == listImageUrls[imageUrlIndex]['imageList'].length - 1  ){
                     if(objSend['listWebsites'].length > 0 ){
+                        objSend['type'] = 'commerce';
                         tshirtsList.push(objSend);
                     }
                 }
                 console.log(objSend);
+            }
+            if( imageUrlIndex == listImageUrls.length-1){
+                if( flag== 1)
+                {
+                    res.send(tshirtsList);
+                    flag=0;
+                }
             }
         }
     }
@@ -102,7 +110,8 @@ var doit = (req, res, next) => {
     listImageUrls=[];
     totalWebsitesToScrap = 0;
     websitesScrapedSoFar = 0;
-
+    flag=1;
+    
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
@@ -118,7 +127,7 @@ var doit = (req, res, next) => {
                 // console.log(listImageUrls.length);
                 res.send(tshirtsList);
             }
-        },40000
+        },60000
     );
 }
 

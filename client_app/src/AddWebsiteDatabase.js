@@ -26,20 +26,34 @@ class AddWebsiteDatabase extends React.Component{
       .then( res => this.setState({apiResponse: res}) );
   }
 
-  componentWillMount(){
-    this.callApi();
-  }
-
   render() 
   {
     return (
       <div className="App">
-          <TextField 
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Choose Type of Website</FormLabel>
+            <RadioGroup aria-label="gender" name="gender1"
+                value = {this.state.typeWebsite}
+                onChange={(event,value)=> this.setState({typeWebsite:value})}>
+                <FormControlLabel value="Fashion Magazine" control={<Radio />} label="Fashion Magazine" />
+                <FormControlLabel value="E-Commerce Website" control={<Radio />} label="E-Commerce Website" />
+            </RadioGroup>
+            </FormControl>
+            <br/>
+            <br/>
+            <br/>
+
+            
+            <TextField 
             id="outlined-basic" 
             label="Website Name" 
             variant="outlined" 
             onChange={(event) => this.setState({websiteName:event.target.value})}
           />
+          <br/>
+          <br/>
+          <br/>
+
           <Button 
             variant="contained" 
             color="primary"
@@ -59,17 +73,10 @@ class AddWebsiteDatabase extends React.Component{
           >
                 Add Website
             </Button>
-            <FormControl component="fieldset">
-            <FormLabel component="legend">Choose Type of Website</FormLabel>
-            <RadioGroup aria-label="gender" name="gender1"
-                value = {this.state.typeWebsite}
-                onChange={(event,value)=> this.setState({typeWebsite:value})}>
-                <FormControlLabel value="Fashion Magazine" control={<Radio />} label="Fashion Magazine" />
-                <FormControlLabel value="E-Commerce Website" control={<Radio />} label="E-Commerce Website" />
-            </RadioGroup>
-            </FormControl>
             <br/>
-            {this.state.apiResponse}
+          <br/>
+          <br/>
+
       </div>
     );
   }

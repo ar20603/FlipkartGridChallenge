@@ -11,3 +11,13 @@
     width:300px;
     float:left;
 }
+.websiteNameForm{
+    float:left;
+    width:fit-content;
+    margin-right: 10px;
+}
+.websiteTextForm{
+    float:right;
+    width:fit-content;
+    margin-right: 10px;
+}

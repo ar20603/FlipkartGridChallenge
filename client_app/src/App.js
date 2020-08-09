@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import AddWebsiteDatabase from './AddWebsiteDatabase'
 import DisplayImages from './DisplayImages'
+import NavBar from './NavBar'
 
 function App() {
+
+  const [mapWebsitesToScale, setMapWebsitesToScale] = useState({'amazon.in':2 , 'flipkart.com':4 ,'myntra.com':5});
+
   return (
       <div className="App">
-      <AddWebsiteDatabase />
-      <DisplayImages />
-        {/* {this.state.apiResponse} */}
+        <NavBar mapWebsitesToScale={mapWebsitesToScale} setMapWebsitesToScale={setMapWebsitesToScale}/>
+        <DisplayImages />
       </div>
   );
 }

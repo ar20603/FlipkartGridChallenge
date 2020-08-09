@@ -9,9 +9,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 class DisplayImageCard extends React.Component{
-    constructor(props){
-        super(props);
-    }
   
   render() 
   {
@@ -26,7 +23,7 @@ class DisplayImageCard extends React.Component{
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                T-Shirt
+                {this.props.name}
               </Typography>
             </CardContent>
           </CardActionArea>

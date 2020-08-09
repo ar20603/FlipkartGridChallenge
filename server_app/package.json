@@ -7,13 +7,20 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "cherio": "^1.0.0-rc.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "firebase": "^7.16.1",
+    "get-image-urls": "^1.0.5",
     "http-errors": "~1.6.3",
+    "image-scraper": "^0.2.1",
+    "images-scraper": "^5.0.7",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "phantom": "^6.3.0",
+    "puppeteer": "^5.2.1",
+    "request": "^2.88.2"
   }
 }

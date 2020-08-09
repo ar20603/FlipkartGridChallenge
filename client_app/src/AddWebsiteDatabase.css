@@ -1,0 +1,13 @@
+.App{
+    margin-left: 50px;
+    margin-top: 50px;
+}
+.imageFabric{
+    height:200px;
+    background-repeat: no-repeat!important;
+    background-size: auto!important;
+}
+.card{
+    width:300px;
+    float:left;
+}

@@ -43,6 +43,7 @@ var getWebsites = async(req, res, next, websitesListRef ) =>
         websitesList = websitesList.data();
         eCommerceWebsites = websitesList['eCommerce'];
     totalWebsitesToScrap = eCommerceWebsites.length;
+    console.log(eCommerceWebsites);
     for( websiteUrlIndex in eCommerceWebsites){
         appendImagesToList(req, res, next, eCommerceWebsites[websiteUrlIndex]);
     }
@@ -51,6 +52,7 @@ var getWebsites = async(req, res, next, websitesListRef ) =>
 var appendImagesToList = async(req, res, next, websiteUrlObj ) =>{
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    console.log(totalWebsitesToScrap);
 
     await page.goto(websiteUrlObj['url']);
     const images = await page.evaluate(() => Array.from(document.images, e => 
@@ -58,6 +60,7 @@ var appendImagesToList = async(req, res, next, websiteUrlObj ) =>{
         ));
     var objListImageUrls = new Object();
     objListImageUrls['name'] = websiteUrlObj['name'];
+    objListImageUrls['type'] = websiteUrlObj['type'];
     var objListImageUrlsImageList = [];
 
     for( var data in images ){
@@ -87,7 +90,7 @@ var appendImagesToList = async(req, res, next, websiteUrlObj ) =>{
                 } );
                 if( index == listImageUrls[imageUrlIndex]['imageList'].length - 1  ){
                     if(objSend['listWebsites'].length > 0 ){
-                        objSend['type'] = 'commerce';
+                        objSend['type'] = listImageUrls[imageUrlIndex]['type'];
                         tshirtsList.push(objSend);
                     }
                 }
@@ -111,7 +114,7 @@ var doit = (req, res, next) => {
     totalWebsitesToScrap = 0;
     websitesScrapedSoFar = 0;
     flag=1;
-    
+
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
@@ -126,8 +129,9 @@ var doit = (req, res, next) => {
                 // console.log(totalWebsitesToScrap);
                 // console.log(listImageUrls.length);
                 res.send(tshirtsList);
+                flag=0;
             }
-        },60000
+        },120000
     );
 }
 

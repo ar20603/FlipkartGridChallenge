@@ -21,3 +21,8 @@
     width:fit-content;
     margin-right: 10px;
 }
+.mainForm{
+    float:left;
+    height:50px;
+    margin-left:400px;
+}

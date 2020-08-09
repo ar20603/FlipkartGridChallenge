@@ -29,7 +29,8 @@ class UpdateScaleForm extends React.Component{
     Object.keys(props.mapWebsitesToScale).forEach(function(key) {
     console.log(key, props.mapWebsitesToScale[key]);
     items.push(
-            <div>
+            <div 
+                >
             <p className="websiteNameForm">{key}</p>
             <TextField
                 id="outlined-basic standard-number"
@@ -94,11 +95,8 @@ class UpdateScaleForm extends React.Component{
           <Button 
             variant="contained" 
             color="primary"
-            onClick={(event) => {
-                console.log("hello");
-                console.log(this.state.listWebsites);
-                this.props.setMapWebsitesToScale(this.state.listWebsites);
-            }}
+            onClick={ this.props.setMapWebsitesToScale(this.state.listWebsites)
+            }
           >
                 Apply
             </Button>

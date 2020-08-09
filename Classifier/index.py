@@ -1,3 +1,4 @@
+#Import Libraries
 from keras.preprocessing import image
 from keras.layers import GlobalAveragePooling2D, Dense, Dropout
 from keras.models import Model
@@ -22,6 +23,7 @@ from flask import jsonify
 app = Flask(__name__)
 run_with_ngrok(app) 
 
+##Define MobileNet CNN model
 base_model = tf.keras.applications.MobileNet(
     include_top=False,
     weights="imagenet",
@@ -72,7 +74,8 @@ def classify():
     image = image/255.0
     preds = model.predict(image)
     print(preds)
-
+	
+	#Threshold set to 85% confidence
     if preds[0][1] >= 0.85:
         category = "tshirt"
     else:
